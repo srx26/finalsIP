@@ -9,10 +9,8 @@ const RegistrationForm = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/register', { username, password });
       console.log('Registration successful:', response.data);
-      // Redirect or show success message
     } catch (error) {
       console.error('Error registering:', error);
-      // Display error message to user
     }
   };
 

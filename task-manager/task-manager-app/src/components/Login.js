@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -10,10 +10,8 @@ const LoginForm = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/login', { username, password });
       console.log('Login successful:', response.data);
-      // Redirect or show success message
     } catch (error) {
       console.error('Error logging in:', error);
-      // Display error message to user
     }
   };
 
