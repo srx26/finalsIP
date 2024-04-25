@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+
 const Add = ({ onTaskAdded }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   const handleAddTask = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/tasks', { title, description });
-      console.log('Task added successfully:', response.data);
-      onTaskAdded(); 
-
-
+      await axios.post('http://localhost:5000/api/tasks', { title, description });
+      console.log('Task added successfully');
+      onTaskAdded();
       setTitle('');
       setDescription('');
     } catch (error) {
@@ -18,17 +17,8 @@ const Add = ({ onTaskAdded }) => {
     }
   };
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/tasks');
-      console.log('Tasks fetched after adding new task:', response.data);
-    } catch (error) {
-      console.error('Error fetching tasks after adding new task:', error);
-    }
-  };
-
   return (
-    <div>
+    <div className="task-container">
       <h2>Add New Task</h2>
       <input
         type="text"

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Add from "./Add";
+import List from "./List";
+import "./styles.css";
 
 const Main = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [tasks, setTasks] = useState([]);
-  const [editingTaskId, setEditingTaskId] = useState(null);
-  const [editedTitle, setEditedTitle] = useState('');
-  const [editedDescription, setEditedDescription] = useState('');
+  const [taskToUpdate, setTaskToUpdate] = useState(null);
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   const fetchTasks = async () => {
     try {
@@ -15,23 +18,6 @@ const Main = () => {
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const handleAddTask = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/tasks', { title, description });
-      console.log('Task added successfully:', response.data);
-
-      setTitle('');
-      setDescription('');
-      fetchTasks();
-    } catch (error) {
-      console.error('Error adding task:', error);
     }
   };
 
@@ -46,82 +32,31 @@ const Main = () => {
   };
 
   const handleEditTask = (taskId, title, description) => {
-    setEditingTaskId(taskId);
-    setEditedTitle(title);
-    setEditedDescription(description);
+    setTaskToUpdate({ id: taskId, title, description });
   };
 
-  const handleSaveEdit = async () => {
+  const handleSaveEdit = async (editedTask) => {
     try {
-      await axios.put(`http://localhost:5000/api/tasks/${editingTaskId}`, {
-        title: editedTitle,
-        description: editedDescription
+      await axios.put(`http://localhost:5000/api/tasks/${editedTask.id}`, {
+        title: editedTask.title,
+        description: editedTask.description
       });
-      console.log('Task updated successfully:', editingTaskId);
-      setEditingTaskId(null);
-      setTasks(tasks.map(task =>
-        task.id === editingTaskId ? { ...task, title: editedTitle, description: editedDescription } : task
-      ));
+      console.log('Task updated successfully:', editedTask.id);
+      fetchTasks();
+      setTaskToUpdate(null);
     } catch (error) {
       console.error('Error updating task:', error);
     }
   };
 
   const handleCancelEdit = () => {
-    setEditingTaskId(null);
-    setEditedTitle('');
-    setEditedDescription('');
+    setTaskToUpdate(null);
   };
 
   return (
     <div>
-      <h2>Add New Task</h2>
-      <input
-        type="text"
-        placeholder="Task Name"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={e => setDescription(e.target.value)}
-      />
-      <button onClick={handleAddTask}>Add Task</button>
-
-      <div className="task-container">
-        <h2>Tasks</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tasks.map(task => (
-              <tr key={task.id}>
-                <td>{editingTaskId === task.id ? <input type="text" value={editedTitle} onChange={e => setEditedTitle(e.target.value)} /> : task.title}</td>
-                <td>{editingTaskId === task.id ? <textarea value={editedDescription} onChange={e => setEditedDescription(e.target.value)} /> : task.description}</td>
-                <td>
-                  {editingTaskId === task.id ? (
-                    <>
-                      <button onClick={handleSaveEdit}>Save</button>
-                      <button onClick={handleCancelEdit}>Cancel</button>
-                    </>
-                  ) : (
-                    <>
-                      <button onClick={() => handleEditTask(task.id, task.title, task.description)}>Edit</button>
-                      <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Add onTaskAdded={fetchTasks} />
+      <List tasks={tasks} taskToUpdate={taskToUpdate} onEditTask={handleEditTask} onSaveEdit={handleSaveEdit} onCancelEdit={handleCancelEdit} onDeleteTask={handleDeleteTask} />
     </div>
   );
 };
