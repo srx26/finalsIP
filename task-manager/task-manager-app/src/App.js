@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Add from "./components/Add";
-import List from "./components/List";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Main from './components/Main';
+import Add from "./components/task-activity/Add";
+import List from "./components/task-activity/List";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+import Main from './components/task-activity/Main';
 
 const App = () => {
   return (

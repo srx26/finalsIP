@@ -29,7 +29,6 @@ const Main = () => {
 
       setTitle('');
       setDescription('');
-      // Refresh the tasks after adding a new one
       fetchTasks();
     } catch (error) {
       console.error('Error adding task:', error);
