@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-
 const Add = ({ onTaskAdded }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

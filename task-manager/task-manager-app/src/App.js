@@ -4,6 +4,7 @@ import Add from "./components/Add";
 import List from "./components/List";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Main from './components/Main';
 
 const App = () => {
   return (
@@ -14,6 +15,8 @@ const App = () => {
           <Route path="/add" element={<Add />} />
           <Route path="/list" element={<List />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/main" element={<Main />} />
+
         </Routes>
       </div>
     </Router>
