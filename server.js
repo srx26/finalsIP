@@ -26,20 +26,44 @@ db.connect((err) => {
 
 //REGISTRATION
 app.post('/api/register', async(req, res) => {
-  const { username, password } = req.body;
-  const sql = 'INSERT INTO users (username, password) VALUES (?, ?)';
-  db.query(sql, [username, password], (err, result) => {
+  const { email, username, password } = req.body;
+  const checkEmailQuery = 'SELECT * FROM users WHERE email = ?';
+  const checkUsernameQuery = 'SELECT * FROM users WHERE username = ?';
+  
+  db.query(checkEmailQuery, [email], (err, emailResults) => {
     if (err) {
-      console.error('Error registering user:', err);
-      res.status(500).json({ error: 'Failed to register user' });
-    } else {
-      res.status(201).json({ message: 'User registered successfully' });
+      console.error('Error checking email:', err);
+      return res.status(500).json({ error: 'Failed to register user' });
     }
+    
+    if (emailResults.length > 0) {
+      return res.status(400).json({ error: 'Email already exists' });
+    }
+
+    db.query(checkUsernameQuery, [username], (err, usernameResults) => {
+      if (err) {
+        console.error('Error checking username:', err);
+        return res.status(500).json({ error: 'Failed to register user' });
+      }
+      
+      if (usernameResults.length > 0) {
+        return res.status(400).json({ error: 'Username already exists' });
+      }
+
+      const sql = 'INSERT INTO users (email, username, password) VALUES (?, ?, ?)';
+      db.query(sql, [email, username, password], (err, result) => {
+        if (err) {
+          console.error('Error registering user:', err);
+          res.status(500).json({ error: 'Failed to register user' });
+        } else {
+          res.status(201).json({ message: 'User registered successfully' });
+        }
+      });
+    });
   });
 });
 
-//LOGIN
-
+// LOGIN
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';

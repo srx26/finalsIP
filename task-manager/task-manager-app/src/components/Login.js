@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; 
+import './All.css';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -16,7 +17,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className='reg-container'>
       <h2>Login</h2>
       <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
       <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
