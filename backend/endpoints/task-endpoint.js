@@ -1,7 +1,9 @@
+const express = require('express');
+const router = express.Router();
 const taskRepo = require('../repository/task-repo');
 
 //GET
-app.get('/api/tasks', (req, res) => {
+router.get('/tasks', (req, res) => {
     taskRepo.getTasks((err, tasks) => {
         if (err) {
             res.status(500).json({ error: 'Failed to fetch tasks' });
@@ -12,7 +14,7 @@ app.get('/api/tasks', (req, res) => {
 });
 
 //POST
-app.post('/api/tasks', (req, res) => {
+router.post('/tasks', (req, res) => {
     const { title, description } = req.body;
     taskRepo.addTask(title, description, (err, result) => {
         if (err) {
@@ -24,7 +26,7 @@ app.post('/api/tasks', (req, res) => {
 });
 
 //REMOVE
-app.delete('/api/tasks/:id', (req, res) => {
+router.delete('/tasks/:id', (req, res) => {
     const taskId = req.params.id;
     taskRepo.deleteTask(taskId, (err, result) => {
         if (err) {
@@ -36,7 +38,7 @@ app.delete('/api/tasks/:id', (req, res) => {
 });
 
 //PUT
-app.put('/api/tasks/:id', (req, res) => {
+router.put('/tasks/:id', (req, res) => {
     const taskId = req.params.id;
     const { title, description } = req.body;
     taskRepo.updateTask(taskId, title, description, (err, result) => {
@@ -47,3 +49,5 @@ app.put('/api/tasks/:id', (req, res) => {
         }
     });
 });
+
+module.exports = router;
