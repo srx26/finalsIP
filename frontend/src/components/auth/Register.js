@@ -19,7 +19,7 @@ const RegistrationForm = () => {
       }, 3000);
     } catch (error) {
       console.error('Error registering:', error);
-      setNotification('Failed to register account');
+      setNotification('Failed to register account. Please try again later.');
     }
   };
 
