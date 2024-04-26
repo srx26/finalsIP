@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDeleteTask }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSaveEdit = () => {
+    if (!taskToUpdate.title.trim() || !taskToUpdate.description.trim()) {
+      setErrorMessage("Title and description cannot be empty.");
+      return;
+    }
+
+    setErrorMessage("");
+    onSaveEdit(taskToUpdate);
+  };
+
   return (
     <div className="task-container">
       <h2>Tasks</h2>
@@ -20,8 +32,9 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
               <td>
                 {taskToUpdate && taskToUpdate.id === task.id ? (
                   <>
-                    <button onClick={() => onSaveEdit(taskToUpdate)}>Save</button>
+                    <button onClick={handleSaveEdit}>Save</button>
                     <button onClick={onCancelEdit}>Cancel</button>
+                    {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
                   </>
                 ) : (
                   <>
