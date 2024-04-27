@@ -93,8 +93,8 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
           </table>
         </div>
         <div className="flex justify-center mt-4">
-          <button onClick={prevPage} disabled={currentPage === 1} className="mr-2 bg-gray-300 px-3 py-1 rounded-lg">Previous</button>
-          <button onClick={nextPage} disabled={indexOfLastTask >= tasks.length} className="bg-gray-300 px-3 py-1 rounded-lg">Next</button>
+          <button onClick={prevPage} disabled={currentPage === 1} className="mr-2 bg-gray-300 px-3 py-1 rounded-lg hover:bg-[#9ba2af] ">Previous</button>
+          <button onClick={nextPage} disabled={indexOfLastTask >= tasks.length} className="bg-gray-300 px-3 py-1 rounded-lg hover:bg-[#9ba2af]">Next</button>
         </div>
       </div>
     </div>
