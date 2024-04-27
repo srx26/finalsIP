@@ -35,8 +35,8 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
         <h2 className="text-2xl font-bold mb-4">Tasks</h2>
         <div className="overflow-x-auto">
           <table className="table-fixed w-full">
-            <thead>
-              <tr>
+            <thead className="border-b border-gray">
+              <tr className="mb-4">
                 <th className="w-1/3">Title</th>
                 <th className="w-1/3">Description</th>
                 <th className="w-1/3">Action</th>
@@ -44,7 +44,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
             </thead>
             <tbody>
               {currentTasks.map(task => (
-                <tr key={task.id}>
+                <tr key={task.id} className="border-b border-gray">
                   <td className="w-1/3">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                     <input 
@@ -59,14 +59,14 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                     )}
                   </td>
 
-                  <td className="w-1/3 whitespace-normal break-words">
+                  <td className="w-1/3 whitespace-normal break-words text-justify">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <textarea
                         value={taskToUpdate.description}
                         onChange={e =>
                           onEditTask(task.id, taskToUpdate.title, e.target.value)
                         }
-                        className=" bg-gray-100 text-center py-2"
+                        className=" bg-gray-100 text-justify py-2"
                       />
                     ) : (
                       task.description
