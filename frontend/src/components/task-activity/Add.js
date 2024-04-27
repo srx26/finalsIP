@@ -19,6 +19,8 @@ const Add = ({ onTaskAdded }) => {
       setTitle('');
       setDescription('');
       setErrorMessage("");
+
+      window.alert("Task added successfully!");
     } catch (error) {
       console.error('Error adding task:', error);
     }

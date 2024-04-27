@@ -26,6 +26,7 @@ const Main = () => {
       await axios.delete(`http://localhost:5000/api/tasks/${taskId}`);
       console.log('Task deleted successfully:', taskId);
       setTasks(tasks.filter(task => task.id !== taskId));
+      window.alert("Task deleted successfully!");
     } catch (error) {
       console.error('Error deleting task:', error);
     }
@@ -44,6 +45,7 @@ const Main = () => {
       console.log('Task updated successfully:', editedTask.id);
       fetchTasks();
       setTaskToUpdate(null);
+      window.alert("Task updated successfully!");
     } catch (error) {
       console.error('Error updating task:', error);
     }
