@@ -30,39 +30,6 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
   };
 
   return (
-    <div className="task-container">
-      <h2>Tasks</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-              <th style={{ marginLeft: '30px' }}>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map(task => (
-            <tr key={task.id}>
-              <td>{taskToUpdate && taskToUpdate.id === task.id ? <input type="text" value={taskToUpdate.title} onChange={e => onEditTask(task.id, e.target.value, taskToUpdate.description)} /> : task.title}</td>
-              <td>{taskToUpdate && taskToUpdate.id === task.id ? <textarea value={taskToUpdate.description} onChange={e => onEditTask(task.id, taskToUpdate.title, e.target.value)} /> : task.description}</td>
-              <td>
-                {taskToUpdate && taskToUpdate.id === task.id ? (
-                  <>
-                    <button onClick={handleSaveEdit}>Save</button>
-                    <button onClick={onCancelEdit}>Cancel</button>
-                    {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-                  </>
-                ) : (
-                  <>
-                    <button onClick={() => onEditTask(task.id, task.title, task.description)}>Edit</button>
-                    <button onClick={() => onDeleteTask(task.id)}>Delete</button>
-                  </>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     <div className="w-full px-16 mt-10">
       <div className="mx-auto rounded-xl text-center flex flex-col p-8 my-4 bg-gray-100">
         <h2 className="text-2xl font-bold mb-4">Tasks</h2>
@@ -130,7 +97,6 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
           <button onClick={nextPage} disabled={indexOfLastTask >= tasks.length} className="bg-gray-300 px-3 py-1 rounded-lg">Next</button>
         </div>
       </div>
-    </div>
     </div>
   );
 };
