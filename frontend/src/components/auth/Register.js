@@ -7,7 +7,7 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [notification, setNotification] = useState('');
+  const [notification, setNotification] = useState(''); 
 
   const handleRegister = async () => {
     try {

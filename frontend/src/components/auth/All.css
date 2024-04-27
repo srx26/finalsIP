@@ -62,7 +62,7 @@ body{
 /* NOTIF */
 .popup {
     position: fixed;
-    top: 5px; /* Adjust this value to set the distance from the top of the page */
+    top: 5px; 
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
@@ -73,10 +73,10 @@ body{
   }
   
 .success-message {
-    color: #008000; /* Green color for success message */
+    color: #008000; 
   }
   
 .error-message {
-    color: #ff0000; /* Red color for error message */
+    color: #ff0000; 
   }
   

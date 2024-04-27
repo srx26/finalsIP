@@ -21,7 +21,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
           <tr>
             <th>Title</th>
             <th>Description</th>
-            <th>Action</th>
+              <th style={{ marginLeft: '30px' }}>Action</th>
           </tr>
         </thead>
         <tbody>
