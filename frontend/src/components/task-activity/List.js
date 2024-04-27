@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDeleteTask }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const tasksPerPage = 5; // Change this value to adjust the number of tasks per page
+  const tasksPerPage = 5; 
 
   const handleSaveEdit = () => {
     if (!taskToUpdate.title.trim() || !taskToUpdate.description.trim()) {
@@ -15,12 +15,12 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
     onSaveEdit(taskToUpdate);
   };
 
-  // Logic to calculate the index of the first and last task on the current page
+ 
   const indexOfLastTask = currentPage * tasksPerPage;
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;
   const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
 
-  // Logic to handle pagination navigation
+
   const nextPage = () => {
     setCurrentPage(prevPage => prevPage + 1);
   };
@@ -45,7 +45,20 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
             <tbody>
               {currentTasks.map(task => (
                 <tr key={task.id}>
-                  <td className="w-1/3">{task.title}</td>
+                  <td className="w-1/3">
+                    {taskToUpdate && taskToUpdate.id === task.id ? (
+                    <input 
+                      type="text" 
+                      value={taskToUpdate.title} 
+                      onChange={e => 
+                        onEditTask(task.id, e.target.value, taskToUpdate.description)
+                      } 
+                      className=" bg-gray-100 text-center py-2"  /> 
+                    ) : ( 
+                      task.title
+                    )}
+                  </td>
+
                   <td className="w-1/3 whitespace-normal break-words">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <textarea
@@ -53,17 +66,18 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                         onChange={e =>
                           onEditTask(task.id, taskToUpdate.title, e.target.value)
                         }
-                        className="w-full"
+                        className=" bg-gray-100 text-center py-2"
                       />
                     ) : (
                       task.description
                     )}
                   </td>
+
                   <td className="w-1/3">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <>
-                        <button className="bg-slate-600 w-32 rounded-md font-medium my-2 mx-2 py-3 text-white hover:bg-[#374357]" onClick={handleSaveEdit}>Save</button>
-                        <button className="bg-slate-600 w-32 rounded-md font-medium my-2 mx-2 py-3 text-white hover:bg-[#374357]" onClick={onCancelEdit}>Cancel</button>
+                        <button className="bg-slate-600 w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#374357]" onClick={handleSaveEdit}>Save</button>
+                        <button className="bg-[#636972] w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#4c5057]" onClick={onCancelEdit}>Cancel</button>
                         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
                       </>
                     ) : (

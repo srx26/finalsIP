@@ -30,14 +30,14 @@ const Add = ({ onTaskAdded }) => {
         <h2 className="text-2xl font-bold mb-4 text-[#374357]">Add New Task</h2>
   
         <input
-        className="border w-full py-2 px-3 mb-3 placeholder-center text-center"
+        className="border w-full py-2 px-3 mb-3 "
         type="text"
         placeholder="Title"
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
       <textarea
-        className="border w-full py-2 px-3 mb-3 placeholder-center text-center"
+        className="border w-full py-2 px-3 mb-3"
         placeholder="Description"
         value={description}
         onChange={e => setDescription(e.target.value)}
