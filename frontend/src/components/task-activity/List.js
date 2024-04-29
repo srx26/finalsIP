@@ -5,7 +5,8 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState(null);
   const [sortDirection, setSortDirection] = useState("asc");
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
   const tasksPerPage = 5;
 
   const handleSaveEdit = () => {
@@ -18,21 +19,31 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
     onSaveEdit(taskToUpdate);
   };
 
-  const indexOfLastTask = currentPage * tasksPerPage;
-  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
-
   const handleSortByTitle = () => {
     setSortBy("title");
     setSortDirection(prevDirection => (prevDirection === "asc" ? "desc" : "asc"));
   };
 
+  const handleFilterByStatus = (status) => {
+    setSelectedStatus(status);
+  };
 
-  const sortedTasks = tasks.sort((a, b) => {
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+
+  const filteredTasks = tasks.filter((task) =>
+    task.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    (selectedStatus === "" || task.status === selectedStatus)
+  );
+
+  const sortedTasks = filteredTasks.sort((a, b) => {
     if (!sortBy) return 0;
     const aValue = a[sortBy].toLowerCase();
     const bValue = b[sortBy].toLowerCase();
     return sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
   });
+
+  const tasksToShow = sortedTasks.slice(indexOfFirstTask, indexOfLastTask);
 
   const nextPage = () => {
     setCurrentPage(prevPage => prevPage + 1);
@@ -41,11 +52,6 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
   const prevPage = () => {
     setCurrentPage(prevPage => prevPage - 1);
   };
-
-  const filteredTasks = tasks.filter((task) =>
-    task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    task.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div className="w-full px-16 mt-10">
@@ -62,21 +68,29 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
           <button className="bg-gray-300 px-3 py-1 rounded-lg mr-2 hover:bg-[#9ba2af]" onClick={handleSortByTitle}>
             Sort by Title
           </button>
+          <select className="bg-gray-300 px-3 py-1 rounded-lg mr-2" onChange={(e) => handleFilterByStatus(e.target.value)}>
+            <option value="">Filter by Status</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
         </div>
         <div className="overflow-x-auto">
           <table className="table-fixed w-full">
             <thead className="border-b border-gray">
               <tr className="mb-4">
-                <th className="w-1/4">Title</th>
-                <th className="w-1/4">Description</th>
-                <th className="w-1/4">Status</th>
-                <th className="w-1/4">Action</th>
+                <th className="w-1/6">Task ID</th>
+                <th className="w-1/6">Title</th>
+                <th className="w-1/6">Description</th>
+                <th className="w-1/6">Status</th>
+                <th className="w-1/6">Action</th>
               </tr>
             </thead>
             <tbody>
-              {filteredTasks.map(task => (
+              {tasksToShow.map(task => (
                 <tr key={task.id} className="border-b border-gray">
-                  <td className="w-1/4">
+                  <td className="w-1/6">{task.id}</td>
+                  <td className="w-1/6">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <input 
                         type="text" 
@@ -88,7 +102,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                       task.title
                     )}
                   </td>
-                  <td className="w-1/4 whitespace-normal break-words text-justify">
+                  <td className="w-1/6 whitespace-normal break-words text-justify">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <textarea
                         value={taskToUpdate.description}
@@ -99,7 +113,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                       task.description
                     )}
                   </td>
-                  <td className="w-1/4">
+                  <td className="w-1/6">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <select
                         value={taskToUpdate.status}
@@ -114,7 +128,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                       task.status
                     )}
                   </td>
-                  <td className="w-1/3">
+                  <td className="w-1/6">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <>
                         <button className="bg-slate-600 w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#374357]" onClick={handleSaveEdit}>Save</button>
@@ -135,7 +149,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
         </div>
         <div className="flex justify-center mt-4">
           <button onClick={prevPage} disabled={currentPage === 1} className="mr-2 bg-gray-300 px-3 py-1 rounded-lg hover:bg-[#9ba2af] ">Previous</button>
-          <button onClick={nextPage} disabled={indexOfLastTask >= tasks.length} className="bg-gray-300 px-3 py-1 rounded-lg hover:bg-[#9ba2af]">Next</button>
+          <button onClick={nextPage} disabled={indexOfLastTask >= filteredTasks.length} className="bg-gray-300 px-3 py-1 rounded-lg hover:bg-[#9ba2af]">Next</button>
         </div>
       </div>
     </div>
