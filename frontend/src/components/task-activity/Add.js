@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {SERVER_URL} from "./url";
 
 const Add = ({ onTaskAdded }) => {
   const [title, setTitle] = useState('');
@@ -14,7 +15,7 @@ const Add = ({ onTaskAdded }) => {
         return; 
       }
 
-      await axios.post('http://localhost:5000/api/tasks', { title, description });
+      await axios.post(`${SERVER_URL}/api/tasks`, { title, description });
       console.log('Task added successfully');
       onTaskAdded();
       setTitle('');

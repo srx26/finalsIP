@@ -4,6 +4,7 @@ import Add from "./Add";
 import List from "./List";
 import PopupNotification from "./PopupNotification"; 
 import "./styles.css";
+import { SERVER_URL } from "./url";
 
 const Main = () => {
   const [tasks, setTasks] = useState([]);
@@ -17,7 +18,7 @@ const Main = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/tasks');
+      const response = await axios.get(`${SERVER_URL}/api/tasks`);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -26,7 +27,7 @@ const Main = () => {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${taskId}`);
+      await axios.delete(`${SERVER_URL}/api/tasks/${taskId}`);
       console.log('Task deleted successfully:', taskId);
       setTasks(tasks.filter(task => task.id !== taskId));
       setPopupMessage("Task deleted successfully!");
@@ -48,7 +49,7 @@ const Main = () => {
         return;
       }
 
-      await axios.put(`http://localhost:5000/api/tasks/${editedTask.id}`, {
+      await axios.put(`${SERVER_URL}/api/tasks/${editedTask.id}`, {
         title: editedTask.title,
         description: editedTask.description,
         status: editedTask.status
