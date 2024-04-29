@@ -37,34 +37,6 @@ CREATE TABLE `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `title`, `description`) VALUES
-(29, 'sdad', 'adads'),
-(30, 'sds', 'sdda'),
-(31, 'sds', 'dsd');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `username`, `password`) VALUES
-(21, 'email@gmail.com', 'username', 'password'),
-(22, 'mark@gmail.com', 'mark', 'password'),
-(23, 'hh@gmail.com', 'sdsd', 'sdsd'),
-(24, 'lorenz@gmail.com', 'lorenz', 'password');
-
 --
 -- Indexes for dumped tables
 --
@@ -77,11 +49,7 @@ ALTER TABLE `tasks`
 
 --
 -- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
 
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -94,9 +62,7 @@ ALTER TABLE `tasks`
 --
 -- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

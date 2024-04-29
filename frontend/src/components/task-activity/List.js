@@ -26,10 +26,6 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
     setSortDirection(prevDirection => (prevDirection === "asc" ? "desc" : "asc"));
   };
 
-  const handleSortByDescription = () => {
-    setSortBy("description");
-    setSortDirection(prevDirection => (prevDirection === "asc" ? "desc" : "asc"));
-  };
 
   const sortedTasks = tasks.sort((a, b) => {
     if (!sortBy) return 0;
@@ -66,9 +62,6 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
         <div className="flex justify-center mb-4">
           <button className="bg-gray-300 px-3 py-1 rounded-lg mr-2 hover:bg-[#9ba2af]" onClick={handleSortByTitle}>
             Sort by Title
-          </button>
-          <button className="bg-gray-300 px-3 py-1 rounded-lg hover:bg-[#9ba2af]" onClick={handleSortByDescription}>
-            Sort by Description
           </button>
         </div>
         <div className="overflow-x-auto">
