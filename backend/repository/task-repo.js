@@ -40,9 +40,9 @@ const deleteTask = (taskId, callback) => {
 };
 
 //EDIT
-const updateTask = (taskId, title, description, callback) => {
-    const sql = 'UPDATE tasks SET title = ?, description = ? WHERE id = ?';
-    pool.query(sql, [title, description, taskId], (err, result) => {
+const updateTask = (taskId, title, description, status, callback) => {
+    const sql = 'UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ?';
+    pool.query(sql, [title, description, status, taskId], (err, result) => {
         if (err) {
             console.error('Error updating task:', err);
             callback(err);

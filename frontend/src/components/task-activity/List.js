@@ -33,7 +33,6 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
     const bValue = b[sortBy].toLowerCase();
     return sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
   });
-  const currentTasks = sortedTasks.slice(indexOfFirstTask, indexOfLastTask);
 
   const nextPage = () => {
     setCurrentPage(prevPage => prevPage + 1);
@@ -68,35 +67,51 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
           <table className="table-fixed w-full">
             <thead className="border-b border-gray">
               <tr className="mb-4">
-                <th className="w-1/3">Title</th>
-                <th className="w-1/3">Description</th>
-                <th className="w-1/3">Action</th>
+                <th className="w-1/4">Title</th>
+                <th className="w-1/4">Description</th>
+                <th className="w-1/4">Status</th>
+                <th className="w-1/4">Action</th>
               </tr>
             </thead>
             <tbody>
               {filteredTasks.map(task => (
                 <tr key={task.id} className="border-b border-gray">
-                  <td className="w-1/3">
+                  <td className="w-1/4">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <input 
                         type="text" 
                         value={taskToUpdate.title} 
-                        onChange={e => onEditTask(task.id, e.target.value, taskToUpdate.description)} 
+                        onChange={e => onEditTask(task.id, e.target.value, taskToUpdate.description, taskToUpdate.status)} 
                         className="bg-gray-100 text-center py-2"  
                       /> 
                     ) : ( 
                       task.title
                     )}
                   </td>
-                  <td className="w-1/3 whitespace-normal break-words text-justify">
+                  <td className="w-1/4 whitespace-normal break-words text-justify">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <textarea
                         value={taskToUpdate.description}
-                        onChange={e => onEditTask(task.id, taskToUpdate.title, e.target.value)}
+                        onChange={e => onEditTask(task.id, taskToUpdate.title, e.target.value, taskToUpdate.status)}
                         className="bg-gray-100 text-justify py-2"
                       />
                     ) : (
                       task.description
+                    )}
+                  </td>
+                  <td className="w-1/4">
+                    {taskToUpdate && taskToUpdate.id === task.id ? (
+                      <select
+                        value={taskToUpdate.status}
+                        onChange={e => onEditTask(task.id, taskToUpdate.title, taskToUpdate.description, e.target.value)}
+                        className="bg-gray-100 text-justify py-2 "
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    ) : (
+                      task.status
                     )}
                   </td>
                   <td className="w-1/3">
@@ -108,7 +123,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                       </>
                     ) : (
                       <>
-                        <button className="bg-slate-600 w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#374357]" onClick={() => onEditTask(task.id, task.title, task.description)}>Edit</button>
+                        <button className="bg-slate-600 w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#374357]" onClick={() => onEditTask(task.id, task.title, task.description, task.status)}>Edit</button>
                         <button className="bg-[#FF4D4D] w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#b93737d5]" onClick={() => onDeleteTask(task.id)}>Delete</button>  
                       </>
                     )}
