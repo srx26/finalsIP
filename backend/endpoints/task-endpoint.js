@@ -40,8 +40,8 @@ router.delete('/tasks/:id', (req, res) => {
 //PUT
 router.put('/tasks/:id', (req, res) => {
     const taskId = req.params.id;
-    const { title, description } = req.body;
-    taskRepo.updateTask(taskId, title, description, (err, result) => {
+    const { title, description, status } = req.body;
+    taskRepo.updateTask(taskId, title, description, status, (err, result) => {
         if (err) {
             res.status(500).json({ error: 'Failed to update task' });
         } else {

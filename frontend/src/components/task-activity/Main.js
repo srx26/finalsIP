@@ -36,8 +36,8 @@ const Main = () => {
     }
   };
 
-  const handleEditTask = (taskId, title, description) => {
-    setTaskToUpdate({ id: taskId, title, description });
+  const handleEditTask = (taskId, title, description, status) => {
+    setTaskToUpdate({ id: taskId, title, description, status });
   };
 
   const handleSaveEdit = async (editedTask) => {
@@ -50,7 +50,8 @@ const Main = () => {
 
       await axios.put(`http://localhost:5000/api/tasks/${editedTask.id}`, {
         title: editedTask.title,
-        description: editedTask.description
+        description: editedTask.description,
+        status: editedTask.status
       });
       console.log('Task updated successfully:', editedTask.id);
       fetchTasks();
