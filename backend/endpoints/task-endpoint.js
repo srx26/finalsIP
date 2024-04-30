@@ -16,6 +16,10 @@ router.get('/tasks', (req, res) => {
 //POST
 router.post('/tasks', (req, res) => {
     const { title, description } = req.body;
+    if (!title || !description) {
+        return res.status(400).json({ error: 'Title and description cannot be empty' });
+    }
+
     taskRepo.addTask(title, description, (err, result) => {
         if (err) {
             res.status(500).json({ error: 'Failed to add task' });
@@ -24,6 +28,7 @@ router.post('/tasks', (req, res) => {
         }
     });
 });
+
 
 //REMOVE
 router.delete('/tasks/:id', (req, res) => {
