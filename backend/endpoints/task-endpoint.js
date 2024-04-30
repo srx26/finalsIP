@@ -47,8 +47,8 @@ router.put('/tasks/:id', (req, res) => {
     const taskId = req.params.id;
     const { title, description, status } = req.body;
 
-    if (!title || !description) {
-        return res.status(400).json({ error: 'Title and description cannot be empty' });
+    if (!title || !description || !status) {
+        return res.status(400).json({ error: 'Fields cannot be empty' });
     }
 
     taskRepo.updateTask(taskId, title, description, status, (err, result) => {
