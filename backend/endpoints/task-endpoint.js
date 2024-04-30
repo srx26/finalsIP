@@ -51,6 +51,11 @@ router.put('/tasks/:id', (req, res) => {
         return res.status(400).json({ error: 'Fields cannot be empty' });
     }
 
+    const allowedStatus = ['Completed', 'In Progress', 'Pending'];
+    if (!allowedStatus.includes(status)) {
+        return res.status(400).json({ error: 'Invalid input'});
+    }
+
     taskRepo.updateTask(taskId, title, description, status, (err, result) => {
         if (err) {
             res.status(500).json({ error: 'Failed to update task' });
