@@ -7,12 +7,14 @@ const Add = ({ onTaskAdded }) => {
   const [description, setDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  //initialize to be empty strings
 
   const handleAddTask = async () => {
     try {
       if (!title.trim() || !description.trim()) {
         setErrorMessage("Title and description cannot be empty.");
         return; 
+        //error message is shown when fields are null
       }
 
       await axios.post(`${SERVER_URL}/api/tasks`, { title, description });
@@ -21,8 +23,10 @@ const Add = ({ onTaskAdded }) => {
       setTitle('');
       setDescription('');
       setErrorMessage("");
+      //resets all fields 
       
       setShowPopup(true);
+      //task added successfully pops up
 
     } catch (error) {
       console.error('Error adding task:', error);
