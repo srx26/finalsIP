@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 27, 2024 at 05:06 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Host: localhost
+-- Generation Time: Apr 30, 2024 at 02:13 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,13 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tasks` (
   `id` int(11) NOT NULL,
-  `title` varchar(200) NOT NULL,
-  `description` text NOT NULL
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `status` enum('Pending','Completed','In Progress') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tasks`
 --
+
+INSERT INTO `tasks` (`id`, `title`, `description`, `status`) VALUES
+(22, 'Task 1', 'This is my task number 1', 'Pending'),
+(24, 'Task 2', 'This is my task number 2', 'Pending');
 
 --
 -- Indexes for dumped tables
@@ -48,8 +53,6 @@ ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
-
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -57,12 +60,8 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT for table `users`
---
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
