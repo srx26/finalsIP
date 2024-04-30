@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const taskRepo = require('../repository/task-repo');
 
-//GET
+// GET: Fetch all tasks
 router.get('/tasks', (req, res) => {
     taskRepo.getTasks((err, tasks) => {
         if (err) {
@@ -13,7 +13,7 @@ router.get('/tasks', (req, res) => {
     });
 });
 
-//POST
+// POST: Add a new task
 router.post('/tasks', (req, res) => {
     const { title, description } = req.body;
     if (!title || !description) {
@@ -29,8 +29,7 @@ router.post('/tasks', (req, res) => {
     });
 });
 
-
-//REMOVE
+// DELETE: Remove a task by ID
 router.delete('/tasks/:id', (req, res) => {
     const taskId = req.params.id;
     taskRepo.deleteTask(taskId, (err, result) => {
@@ -42,7 +41,7 @@ router.delete('/tasks/:id', (req, res) => {
     });
 });
 
-//PUT
+// PUT: Update a task by ID
 router.put('/tasks/:id', (req, res) => {
     const taskId = req.params.id;
     const { title, description, status } = req.body;
@@ -51,12 +50,13 @@ router.put('/tasks/:id', (req, res) => {
         return res.status(400).json({ error: 'Fields cannot be empty' });
     }
 
-    const allowedStatus = ['Completed', 'In Progress', 'Pending'];
-    if (!allowedStatus.includes(status)) {
-        return res.status(400).json({ error: 'Invalid input'});
+    const allowedStatus = ['completed', 'in progress', 'pending'];
+    const lowercaseStatus = status.toLowerCase();
+    if (!allowedStatus.includes(lowercaseStatus)) {
+        return res.status(400).json({ error: 'Invalid input' });
     }
 
-    taskRepo.updateTask(taskId, title, description, status, (err, result) => {
+    taskRepo.updateTask(taskId, title, description, lowercaseStatus, (err, result) => {
         if (err) {
             res.status(500).json({ error: 'Failed to update task' });
         } else {
@@ -64,7 +64,5 @@ router.put('/tasks/:id', (req, res) => {
         }
     });
 });
-
-
 
 module.exports = router;
