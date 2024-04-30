@@ -7,6 +7,7 @@ const deleteTask = async (taskId, setTasks, tasks, setPopupMessage, setShowPopup
     console.log('Task deleted successfully:', taskId);
     setTasks(tasks.filter(task => task.id !== taskId));
     setPopupMessage("Task deleted successfully!");
+    //confirms that task has been successfully deleted
     setShowPopup(true);
   } catch (error) {
     console.error('Error deleting task:', error);
