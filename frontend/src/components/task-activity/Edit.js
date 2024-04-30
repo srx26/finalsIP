@@ -4,8 +4,7 @@ import { SERVER_URL } from "./url";
 const editTask = async (editedTask, fetchTasks, setTaskToUpdate, setPopupMessage, setShowPopup) => {
   try {
     if (!editedTask.title.trim() || !editedTask.description.trim()) {
-      setPopupMessage("Title and description cannot be empty.");
-      //notifies user that title and description fields should not be null
+      setPopupMessage("Title and description cannot be empty."); //notifies user that title and description fields should not be null
       setShowPopup(true);
       return;
     }
@@ -18,8 +17,7 @@ const editTask = async (editedTask, fetchTasks, setTaskToUpdate, setPopupMessage
     console.log('Task updated successfully:', editedTask.id);
     fetchTasks();
     setTaskToUpdate(null);
-    setPopupMessage("Task updated successfully!");
-    //shows confirmation that edit has been made
+    setPopupMessage("Task updated successfully!"); //shows confirmation that edit has been made
     setShowPopup(true);
   } catch (error) {
     console.error('Error updating task:', error);
