@@ -12,8 +12,6 @@ CREATE TABLE `tasks` (
 
 
 
-
-
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`);
 

@@ -1,20 +1,16 @@
-// import React from "react";
-// import axios from "axios";
+import axios from "axios";
+import { SERVER_URL } from "./url";
 
-// const Delete = ({ taskId, onTaskDeleted }) => {
-//   const handleDeleteTask = async () => {
-//     try {
-//       await axios.delete(`http://localhost:5000/api/tasks/${taskId}`);
-//       console.log('Task deleted successfully');
-//       onTaskDeleted();
-//     } catch (error) {
-//       console.error('Error deleting task:', error);
-//     }
-//   };
+const deleteTask = async (taskId, setTasks, tasks, setPopupMessage, setShowPopup) => {
+  try {
+    await axios.delete(`${SERVER_URL}/api/tasks/${taskId}`);
+    console.log('Task deleted successfully:', taskId);
+    setTasks(tasks.filter(task => task.id !== taskId));
+    setPopupMessage("Task deleted successfully!");
+    setShowPopup(true);
+  } catch (error) {
+    console.error('Error deleting task:', error);
+  }
+};
 
-//   return (
-//     <button onClick={handleDeleteTask}>Delete</button>
-//   );
-// };
-
-// export default Delete;
+export default deleteTask;
