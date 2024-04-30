@@ -5,6 +5,7 @@ const editTask = async (editedTask, fetchTasks, setTaskToUpdate, setPopupMessage
   try {
     if (!editedTask.title.trim() || !editedTask.description.trim()) {
       setPopupMessage("Title and description cannot be empty.");
+      //notifies user that title and description fields should not be null
       setShowPopup(true);
       return;
     }
@@ -18,9 +19,11 @@ const editTask = async (editedTask, fetchTasks, setTaskToUpdate, setPopupMessage
     fetchTasks();
     setTaskToUpdate(null);
     setPopupMessage("Task updated successfully!");
+    //shows confirmation that edit has been made
     setShowPopup(true);
   } catch (error) {
     console.error('Error updating task:', error);
+    //shows error when status is left blank
   }
 };
 
