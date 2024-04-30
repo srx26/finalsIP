@@ -114,6 +114,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                       task.description
                     )}
                   </td>
+                /*Update Status to Pending, In Progress, or Completed*/
                   <td className="w-1/6">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <select
