@@ -23,7 +23,6 @@ const editTask = async (editedTask, fetchTasks, setTaskToUpdate, setPopupMessage
     setShowPopup(true);
   } catch (error) {
     console.error('Error updating task:', error);
-    //shows error when status is left blank
   }
 };
 
