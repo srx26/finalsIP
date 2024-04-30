@@ -12,9 +12,6 @@ CREATE TABLE `tasks` (
 
 
 
-INSERT INTO `tasks` (`id`, `title`, `description`, `status`) VALUES
-(22, 'Task 1', 'This is my task number 1', 'Pending'),
-(24, 'Task 2', 'This is my task number 2', 'Pending');
 
 
 ALTER TABLE `tasks`
@@ -24,4 +21,3 @@ ALTER TABLE `tasks`
 ALTER TABLE `tasks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
-
