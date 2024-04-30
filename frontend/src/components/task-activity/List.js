@@ -9,9 +9,9 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
   const [selectedStatus, setSelectedStatus] = useState("");
   const tasksPerPage = 5;
 
-  const handleSaveEdit = () => {
-    if (!taskToUpdate.title.trim() || !taskToUpdate.description.trim()) {
-      setErrorMessage("Title and description cannot be empty.");
+  const handleSaveEdit = () => { 
+    if (!taskToUpdate.title.trim() || !taskToUpdate.description.trim()) { //check to see if fields are empty
+      setErrorMessage("Title and description cannot be empty."); 
       return;
     }
 
@@ -21,27 +21,27 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
 
   const handleSortByTitle = () => {
     setSortBy("title");
-    setSortDirection(prevDirection => (prevDirection === "asc" ? "desc" : "asc"));
+    setSortDirection(prevDirection => (prevDirection === "asc" ? "desc" : "asc")); //toggle sort direction between asc and desc
   };
 
   const handleFilterByStatus = (status) => {
-    setSelectedStatus(status);
+    setSelectedStatus(status); //update selectedStatus with target status to filter by
   };
 
   const indexOfLastTask = currentPage * tasksPerPage;
-  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage; 
 
   const filteredTasks = tasks.filter((task) =>
     task.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (selectedStatus === "" || task.status === selectedStatus)
-  );
+  ); //search
 
   const sortedTasks = filteredTasks.sort((a, b) => {
     if (!sortBy) return 0;
     const aValue = a[sortBy].toLowerCase();
     const bValue = b[sortBy].toLowerCase();
     return sortDirection === "asc" ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-  });
+  }); //sort
 
   const tasksToShow = sortedTasks.slice(indexOfFirstTask, indexOfLastTask);
 
@@ -52,6 +52,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
   const prevPage = () => {
     setCurrentPage(prevPage => prevPage - 1);
   };
+  //pagination
 
   return (
     <div className="w-full px-16 mt-10">
