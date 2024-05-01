@@ -130,7 +130,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                         {task.status}
                       </span>
                     
-                    )}
+                    )}  
                   </td>
                   <td className="w-1/6">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
