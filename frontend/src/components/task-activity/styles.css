@@ -10,14 +10,14 @@ body {
 }
 
 .pending {
-  color: orange;
+  color: #fca400;
 }
 
 .in-progress {
-  color: blue;
+  color: #4675bd;
 }
 
 .completed {
-  color: green;
+  color: #4cad61;
 }
 

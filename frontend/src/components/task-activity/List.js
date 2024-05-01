@@ -121,14 +121,15 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                         onChange={e => onEditTask(task.id, taskToUpdate.title, taskToUpdate.description, e.target.value)}
                         className="bg-gray-100 text-slate-800 rounded-2xl focus:outline-none focus:ring-1 focus:ring-[#9d9d9e] w-full lg:w-auto"  
                       >
-                        <option value="Pending" className="text-[#ffe079]">Pending</option>
-                        <option value="In Progress" className="text-[#4cad61]" >In Progress</option>
-                        <option value="Completed" className="text-[#4675bd]" >Completed</option>
+                        <option value="Pending" class = "pending">Pending</option>
+                        <option value="In Progress" class="in-progress" >In Progress</option>
+                        <option value="Completed" class="completed" >Completed</option>
                       </select>
                     ) : (
-                      <span className={`bg-${task.status === 'Pending' ? '[#ffe079]' : task.status === 'In Progress' ? '[#4cad61]' : '[#4675bd]'}  px-3 py-1 rounded-2xl inline-block mb-2 lg:mb-0`}> 
+                      <span className={`px-3 py-1 rounded-2xl ${task.status === 'Pending' ? 'bg-[#ffe079]' : task.status === 'In Progress' ? 'bg-[#4cad61]' : 'bg-[#4675bd]'}`}>
                         {task.status}
                       </span>
+                    
                     )}
                   </td>
                   <td className="w-1/6">
