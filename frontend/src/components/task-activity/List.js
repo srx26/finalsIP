@@ -114,6 +114,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                       task.description
                     )}
                   </td>
+                /* Updating Status: Pending, In Progress, or Completed */
                   <td className="w-1/6 text-[#fffafa]">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
                       <select
@@ -126,6 +127,7 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                         <option value="Completed" className="text-[#4675bd]" >Completed</option>
                       </select>
                     ) : (
+                      /* Updated Status with color */
                       <span className={`bg-${task.status === 'Pending' ? '[#ffe079]' : task.status === 'In Progress' ? '[#4cad61]' : '[#4675bd]'}  px-3 py-1 rounded-2xl inline-block mb-2 lg:mb-0`}> 
                         {task.status}
                       </span>
@@ -133,16 +135,15 @@ const List = ({ tasks, taskToUpdate, onEditTask, onSaveEdit, onCancelEdit, onDel
                   </td>
                   <td className="w-1/6">
                     {taskToUpdate && taskToUpdate.id === task.id ? (
-                      <>
+                      </* Save Button */>
                         <button className="bg-slate-600 w-full lg:w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#374357]" onClick={handleSaveEdit}>Save</button>
                         <button className="bg-[#5a5c5f] w-full lg:w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#4c5057]" onClick={onCancelEdit}>Cancel</button>
                         {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
                       </>
                     ) : (
-                      <>
+                      </* Delete Button */>
                         <button className="bg-slate-600 w-full lg:w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#374357]" onClick={() => onEditTask(task.id, task.title, task.description, task.status)}>Edit</button>
                         <button className="bg-[#FF4D4D] w-full lg:w-32 rounded-md font-medium my-2 mx-2 py-2 text-white hover:bg-[#b93737d5]" onClick={() => onDeleteTask(task.id)}>Delete</button>  
-                      </>
                     )}
                   </td>
                 </tr>
